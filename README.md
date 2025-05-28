@@ -86,6 +86,25 @@ Example:
 
 ---
 
+## 🎨 Custom Colors
+
+To use different colors for text and background, apply attributes to **separate elements**.  
+Then assign `data-dark` and `data-light` to each one individually:
+
+```html
+<!-- Background Color -->
+<div data-theme-bg data-dark="#cc0000" data-light="#f9f9f9">
+
+  <!-- Text Color -->
+  <p data-theme-text data-dark="#ffffff" data-light="#111111">
+    This text adapts to the theme
+  </p>
+
+</div>
+```
+
+---
+
 ## 📄 License
 
 MIT © [Crystal the Developer Inc.](https://www.crystalthedeveloper.ca)
