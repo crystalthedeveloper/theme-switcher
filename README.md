@@ -47,6 +47,24 @@ Paste this into your **Webflow project settings** under:
 
 ---
 
+## 💡 Default Behavior for Empty Attributes
+
+You can safely add attributes like `data-theme-text` or `data-theme-bg` **without assigning a value**. If no custom color is set via `data-dark` or `data-light`, the script automatically applies fallback styles:
+
+- **Text color:** `#000` (light) and `#fff` (dark)
+- **Background color:** `#fff` (light) and `#000` (dark)
+
+This ensures everything works out-of-the-box, and you can style later when needed.
+
+Example:
+
+```html
+<h2 data-theme-text>Hello World</h2>
+<section data-theme-bg>Welcome Section</section>
+```
+
+---
+
 ## 🖼 Example
 
 ```html
