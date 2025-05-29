@@ -76,7 +76,7 @@ Webflow.push(function () {
     if (customColor) {
       el.style[type] = customColor;
     } else {
-      if (type === "color") el.style.color = theme === "dark" ? "#ffffff" : "#000000";
+      if (type === "color") el.style.color = theme === "dark" ? "#ffffff" : "#1a1a1a";
       if (type === "backgroundColor") el.style.backgroundColor = theme === "dark" ? "#000000" : "#ffffff";
     }
     el.style.transition = `${type} 0.3s ease`;
