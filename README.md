@@ -35,6 +35,8 @@ Paste this into your **Webflow project settings** under:
 | Attribute                | Description                                                       |
 |--------------------------|-------------------------------------------------------------------|
 | `data-theme-toggle`      | Add to a toggle element (e.g., button or div)                     |
+| `data-set-theme="dark"`  | Directly set the theme to dark when this element is clicked       |
+| `data-set-theme="light"` | Directly set the theme to light when this element is clicked      |
 | `data-theme-text`        | Text elements that change color per theme                         |
 | `data-theme-bg`          | Elements with dynamic background color                            |
 | `data-theme-link`        | Links with color changes based on theme                           |
@@ -70,6 +72,10 @@ Example:
 ```html
 <!-- Toggle Button -->
 <div data-theme-toggle>🌗 Toggle Theme</div>
+
+<!-- Direct Theme Selection -->
+<button data-set-theme="dark">Dark</button>
+<button data-set-theme="light">Light</button>
 
 <!-- Icon Swap -->
 <img src="sun.svg" data-icon="light" />

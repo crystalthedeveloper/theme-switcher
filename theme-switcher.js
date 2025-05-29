@@ -1,20 +1,21 @@
-
 /**
  * Webflow Dark/Light Theme Switcher
  * -----------------------------------
  * Automatically sets theme based on user or system preference.
- * Supports toggle button, custom text, background, link, icon, and image styles.
+ * Supports toggle button, direct theme buttons, custom text, background, link, icon, and image styles.
  *
  * ✅ HOW TO USE — Custom Attributes:
  * -----------------------------------
- * [data-theme-toggle]      → Add to the element that should toggle dark/light mode (e.g., a button)
- * [data-theme-text]        → Applies dynamic text color; optional: use [data-dark="#fff"] / [data-light="#000"]
- * [data-theme-bg]          → Applies dynamic background color; optional: use [data-dark="#000"] / [data-light="#fff"]
- * [data-theme-link]        → Applies dynamic link color; optional: use [data-dark="#ccc"] / [data-light="#333"]
- * [data-icon="dark"]       → Shown in dark mode only (e.g., moon icon)
- * [data-icon="light"]      → Shown in light mode only (e.g., sun icon)
- * [data-theme-img="dark"]  → Image to show in dark mode only (e.g., dark logo)
- * [data-theme-img="light"] → Image to show in light mode only (e.g., light logo)
+ * [data-theme-toggle]       → Toggle button
+ * [data-set-theme="dark"]   → Directly switch to dark theme
+ * [data-set-theme="light"]  → Directly switch to light theme
+ * [data-theme-text]         → Dynamic text color; optional: use [data-dark="#fff"] / [data-light="#000"]
+ * [data-theme-bg]           → Dynamic background color; optional: use [data-dark="#000"] / [data-light="#fff"]
+ * [data-theme-link]         → Dynamic link color; optional: use [data-dark="#ccc"] / [data-light="#333"]
+ * [data-icon="dark"]        → Show in dark mode only
+ * [data-icon="light"]       → Show in light mode only
+ * [data-theme-img="dark"]   → Show image in dark mode only
+ * [data-theme-img="light"]  → Show image in light mode only
  */
 
 Webflow.push(function () {
@@ -50,6 +51,7 @@ Webflow.push(function () {
     updateBackgrounds(theme);
     updateLinkColors(theme);
     updateImages(theme);
+    updateActiveButtons(theme);
   }
 
   function updateIcons(theme) {
@@ -81,18 +83,15 @@ Webflow.push(function () {
   }
 
   function updateTextColors(theme) {
-    const elements = document.querySelectorAll("[data-theme-text]");
-    elements.forEach(el => applyColor(el, theme, "color"));
+    document.querySelectorAll("[data-theme-text]").forEach(el => applyColor(el, theme, "color"));
   }
 
   function updateBackgrounds(theme) {
-    const elements = document.querySelectorAll("[data-theme-bg]");
-    elements.forEach(el => applyColor(el, theme, "backgroundColor"));
+    document.querySelectorAll("[data-theme-bg]").forEach(el => applyColor(el, theme, "backgroundColor"));
   }
 
   function updateLinkColors(theme) {
-    const elements = document.querySelectorAll("[data-theme-link]");
-    elements.forEach(el => applyColor(el, theme, "color"));
+    document.querySelectorAll("[data-theme-link]").forEach(el => applyColor(el, theme, "color"));
   }
 
   function updateImages(theme) {
@@ -110,8 +109,29 @@ Webflow.push(function () {
     });
   }
 
+  function updateActiveButtons(theme) {
+    document.querySelectorAll("[data-set-theme]").forEach(el => {
+      const isActive = el.getAttribute("data-set-theme") === theme;
+      el.classList.toggle("active-theme", isActive);
+      el.style.opacity = isActive ? "0.5" : "1";
+      el.style.transition = "opacity 0.3s ease";
+    });
+  }
+
+  // [data-theme-toggle] support
   const toggle = document.querySelector("[data-theme-toggle]");
   if (toggle) {
     toggle.addEventListener("click", toggleTheme);
   }
+
+  // [data-set-theme] support
+  const setThemeButtons = document.querySelectorAll("[data-set-theme]");
+  setThemeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const newTheme = btn.getAttribute("data-set-theme");
+      root.setAttribute("data-theme", newTheme);
+      localStorage.setItem("theme", newTheme);
+      applyTheme(newTheme);
+    });
+  });
 });
