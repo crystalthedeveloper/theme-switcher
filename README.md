@@ -23,7 +23,7 @@ Paste this into your **Webflow project settings** under:
 `Settings → Custom Code → Footer`
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/crystalthedeveloper/theme-switcher/theme-switcher.js" defer></script>
+<script src="https://cdn.jsdelivr.net/gh/crystalthedeveloper/theme-switcher@v1.0.0/theme-switcher.js" defer></script>
 ```
 
 > 💡 Optional: You can also host the minified version `theme-switcher.min.js` for better performance.
