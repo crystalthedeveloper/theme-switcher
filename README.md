@@ -32,26 +32,26 @@ Paste this into your **Webflow project settings** under:
 
 ### 2. Add Attributes to Your Webflow Elements
 
-| Attribute                | Description                                                       |
-|--------------------------|-------------------------------------------------------------------|
-| `data-theme-toggle`      | Add to a toggle element (e.g., button or div)                     |
-| `data-set-theme="dark"`  | Directly set the theme to dark when this element is clicked       |
-| `data-set-theme="light"` | Directly set the theme to light when this element is clicked      |
-| `data-theme-text`        | Text elements that change color per theme                         |
-| `data-theme-bg`          | Elements with dynamic background color                            |
-| `data-theme-link`        | Links with color changes based on theme                           |
-| `data-dark="#000000"`    | Optional custom dark mode color for text/bg/link                  |
-| `data-light="#ffffff"`   | Optional custom light mode color for text/bg/link                 |
-| `data-icon="dark"`       | Icon that appears in dark mode only                               |
-| `data-icon="light"`      | Icon that appears in light mode only                              |
-| `data-theme-img="dark"`  | Image shown in dark mode only                                     |
-| `data-theme-img="light"` | Image shown in light mode only                                    |
+| Attribute                     | Description                                                       |
+|-------------------------------|-------------------------------------------------------------------|
+| `data-cltd-theme-toggle`      | Add to a toggle element (e.g., button or div)                     |
+| `data-cltd-set-theme="dark"` | Directly set the theme to dark when this element is clicked       |
+| `data-cltd-set-theme="light"`| Directly set the theme to light when this element is clicked      |
+| `data-cltd-theme-text`        | Text elements that change color per theme                         |
+| `data-cltd-theme-bg`          | Elements with dynamic background color                            |
+| `data-cltd-theme-link`        | Links with color changes based on theme                           |
+| `data-cltd-dark="#000000"`   | Optional custom dark mode color for text/bg/link                  |
+| `data-cltd-light="#ffffff"`  | Optional custom light mode color for text/bg/link                 |
+| `data-cltd-icon="dark"`      | Icon that appears in dark mode only                               |
+| `data-cltd-icon="light"`     | Icon that appears in light mode only                              |
+| `data-cltd-theme-img="dark"` | Image shown in dark mode only                                     |
+| `data-cltd-theme-img="light"`| Image shown in light mode only                                    |
 
 ---
 
 ## 💡 Default Behavior for Empty Attributes
 
-You can safely add attributes like `data-theme-text` or `data-theme-bg` **without assigning a value**. If no custom color is set via `data-dark` or `data-light`, the script automatically applies fallback styles:
+You can safely add attributes like `data-cltd-theme-text` or `data-cltd-theme-bg` **without assigning a value**. If no custom color is set via `data-cltd-dark` or `data-cltd-light`, the script automatically applies fallback styles:
 
 - **Text color:** `#000` (light) and `#fff` (dark)
 - **Background color:** `#fff` (light) and `#000` (dark)
@@ -61,8 +61,8 @@ This ensures everything works out-of-the-box, and you can style later when neede
 Example:
 
 ```html
-<h2 data-theme-text>Hello World</h2>
-<section data-theme-bg>Welcome Section</section>
+<h2 data-cltd-theme-text>Hello World</h2>
+<section data-cltd-theme-bg>Welcome Section</section>
 ```
 
 ---
@@ -71,23 +71,23 @@ Example:
 
 ```html
 <!-- Toggle Button -->
-<div data-theme-toggle>🌗 Toggle Theme</div>
+<div data-cltd-theme-toggle>🌗 Toggle Theme</div>
 
 <!-- Direct Theme Selection -->
-<button data-set-theme="dark">Dark</button>
-<button data-set-theme="light">Light</button>
+<button data-cltd-set-theme="dark">Dark</button>
+<button data-cltd-set-theme="light">Light</button>
 
 <!-- Icon Swap -->
-<img src="sun.svg" data-icon="light" />
-<img src="moon.svg" data-icon="dark" />
+<img src="sun.svg" data-cltd-icon="light" />
+<img src="moon.svg" data-cltd-icon="dark" />
 
 <!-- Image Swap -->
-<img src="logo-dark.svg" data-theme-img="dark" />
-<img src="logo-light.svg" data-theme-img="light" />
+<img src="logo-dark.svg" data-cltd-theme-img="dark" />
+<img src="logo-light.svg" data-cltd-theme-img="light" />
 
 <!-- Dynamic Text and Background -->
-<h1 data-theme-text data-dark="#fff" data-light="#111">Hello</h1>
-<div data-theme-bg data-dark="#000" data-light="#eee">Welcome</div>
+<h1 data-cltd-theme-text data-cltd-dark="#fff" data-cltd-light="#111">Hello</h1>
+<div data-cltd-theme-bg data-cltd-dark="#000" data-cltd-light="#eee">Welcome</div>
 ```
 
 ---
@@ -95,14 +95,14 @@ Example:
 ## 🎨 Custom Colors
 
 To use different colors for text and background, apply attributes to **separate elements**.  
-Then assign `data-dark` and `data-light` to each one individually:
+Then assign `data-cltd-dark` and `data-cltd-light` to each one individually:
 
 ```html
 <!-- Background Color -->
-<div data-theme-bg data-dark="#cc0000" data-light="#f9f9f9">
+<div data-cltd-theme-bg data-cltd-dark="#cc0000" data-cltd-light="#f9f9f9">
 
   <!-- Text Color -->
-  <p data-theme-text data-dark="#ffffff" data-light="#111111">
+  <p data-cltd-theme-text data-cltd-dark="#ffffff" data-cltd-light="#111111">
     This text adapts to the theme
   </p>
 
