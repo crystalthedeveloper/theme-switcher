@@ -4,18 +4,18 @@
  * Automatically sets theme based on user or system preference.
  * Supports toggle button, direct theme buttons, custom text, background, link, icon, and image styles.
  *
- * ✅ HOW TO USE — Custom Attributes:
- * -----------------------------------
- * [data-theme-toggle]       → Toggle button
- * [data-set-theme="dark"]   → Directly switch to dark theme
- * [data-set-theme="light"]  → Directly switch to light theme
- * [data-theme-text]         → Dynamic text color; optional: use [data-dark="#fff"] / [data-light="#000"]
- * [data-theme-bg]           → Dynamic background color; optional: use [data-dark="#000"] / [data-light="#fff"]
- * [data-theme-link]         → Dynamic link color; optional: use [data-dark="#ccc"] / [data-light="#333"]
- * [data-icon="dark"]        → Show in dark mode only
- * [data-icon="light"]       → Show in light mode only
- * [data-theme-img="dark"]   → Show image in dark mode only
- * [data-theme-img="light"]  → Show image in light mode only
+ * ✅ HOW TO USE — Custom Attributes (cltd-prefixed for uniqueness):
+ * ----------------------------------------------------------------
+ * [data-cltd-theme-toggle]        → Toggle button
+ * [data-cltd-set-theme="dark"]   → Directly switch to dark theme
+ * [data-cltd-set-theme="light"]  → Directly switch to light theme
+ * [data-cltd-theme-text]          → Dynamic text color; optional: use [data-cltd-dark="#fff"] / [data-cltd-light="#000"]
+ * [data-cltd-theme-bg]            → Dynamic background color; optional: use [data-cltd-dark="#000"] / [data-cltd-light="#fff"]
+ * [data-cltd-theme-link]          → Dynamic link color; optional: use [data-cltd-dark="#ccc"] / [data-cltd-light="#333"]
+ * [data-cltd-icon="dark"]        → Show in dark mode only
+ * [data-cltd-icon="light"]       → Show in light mode only
+ * [data-cltd-theme-img="dark"]   → Show image in dark mode only
+ * [data-cltd-theme-img="light"]  → Show image in light mode only
  */
 
 Webflow.push(function () {
@@ -24,7 +24,7 @@ Webflow.push(function () {
   const userPref = localStorage.getItem("theme");
   const systemPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const theme = userPref || (systemPref ? "dark" : "light");
-  root.setAttribute("data-theme", theme);
+  root.setAttribute("data-cltd-theme", theme);
 
   applyTheme(theme);
 
@@ -32,15 +32,15 @@ Webflow.push(function () {
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
     if (!localStorage.getItem("theme")) {
       const newTheme = e.matches ? "dark" : "light";
-      root.setAttribute("data-theme", newTheme);
+      root.setAttribute("data-cltd-theme", newTheme);
       applyTheme(newTheme);
     }
   });
 
   function toggleTheme() {
-    const currentTheme = root.getAttribute("data-theme");
+    const currentTheme = root.getAttribute("data-cltd-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", newTheme);
+    root.setAttribute("data-cltd-theme", newTheme);
     localStorage.setItem("theme", newTheme);
     applyTheme(newTheme);
   }
@@ -55,8 +55,8 @@ Webflow.push(function () {
   }
 
   function updateIcons(theme) {
-    const darkIcons = document.querySelectorAll("[data-icon='dark']");
-    const lightIcons = document.querySelectorAll("[data-icon='light']");
+    const darkIcons = document.querySelectorAll("[data-cltd-icon='dark']");
+    const lightIcons = document.querySelectorAll("[data-cltd-icon='light']");
 
     darkIcons.forEach(icon => {
       icon.style.opacity = theme === "dark" ? "1" : "0";
@@ -72,7 +72,7 @@ Webflow.push(function () {
   }
 
   function applyColor(el, theme, type) {
-    const customColor = el.getAttribute(`data-${theme}`);
+    const customColor = el.getAttribute(`data-cltd-${theme}`);
     if (customColor) {
       el.style[type] = customColor;
     } else {
@@ -83,20 +83,20 @@ Webflow.push(function () {
   }
 
   function updateTextColors(theme) {
-    document.querySelectorAll("[data-theme-text]").forEach(el => applyColor(el, theme, "color"));
+    document.querySelectorAll("[data-cltd-theme-text]").forEach(el => applyColor(el, theme, "color"));
   }
 
   function updateBackgrounds(theme) {
-    document.querySelectorAll("[data-theme-bg]").forEach(el => applyColor(el, theme, "backgroundColor"));
+    document.querySelectorAll("[data-cltd-theme-bg]").forEach(el => applyColor(el, theme, "backgroundColor"));
   }
 
   function updateLinkColors(theme) {
-    document.querySelectorAll("[data-theme-link]").forEach(el => applyColor(el, theme, "color"));
+    document.querySelectorAll("[data-cltd-theme-link]").forEach(el => applyColor(el, theme, "color"));
   }
 
   function updateImages(theme) {
-    const darkImages = document.querySelectorAll('[data-theme-img="dark"]');
-    const lightImages = document.querySelectorAll('[data-theme-img="light"]');
+    const darkImages = document.querySelectorAll('[data-cltd-theme-img="dark"]');
+    const lightImages = document.querySelectorAll('[data-cltd-theme-img="light"]');
 
     darkImages.forEach(img => {
       img.style.display = theme === "dark" ? "block" : "none";
@@ -110,26 +110,26 @@ Webflow.push(function () {
   }
 
   function updateActiveButtons(theme) {
-    document.querySelectorAll("[data-set-theme]").forEach(el => {
-      const isActive = el.getAttribute("data-set-theme") === theme;
+    document.querySelectorAll("[data-cltd-set-theme]").forEach(el => {
+      const isActive = el.getAttribute("data-cltd-set-theme") === theme;
       el.classList.toggle("active-theme", isActive);
       el.style.opacity = isActive ? "0.5" : "1";
       el.style.transition = "opacity 0.3s ease";
     });
   }
 
-  // [data-theme-toggle] support
-  const toggle = document.querySelector("[data-theme-toggle]");
+  // [data-cltd-theme-toggle] support
+  const toggle = document.querySelector("[data-cltd-theme-toggle]");
   if (toggle) {
     toggle.addEventListener("click", toggleTheme);
   }
 
-  // [data-set-theme] support
-  const setThemeButtons = document.querySelectorAll("[data-set-theme]");
+  // [data-cltd-set-theme] support
+  const setThemeButtons = document.querySelectorAll("[data-cltd-set-theme]");
   setThemeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      const newTheme = btn.getAttribute("data-set-theme");
-      root.setAttribute("data-theme", newTheme);
+      const newTheme = btn.getAttribute("data-cltd-set-theme");
+      root.setAttribute("data-cltd-theme", newTheme);
       localStorage.setItem("theme", newTheme);
       applyTheme(newTheme);
     });
